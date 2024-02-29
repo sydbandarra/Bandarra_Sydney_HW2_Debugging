@@ -72,22 +72,10 @@ function resetPuzzlePieces() {
     });
 }
 
-// step 2
-// event handling always goes at the bottom => 
-// how do we want users to interact with our app
-
-// 1 to 1 event handling
-//theButton.addEventListener("click", changeBGImage);
-
-// 1 to many event handling
-// add event handling to each button in the collection of buttons, one at a time
+// Event Handling
 theButtons.forEach(button => button.addEventListener("click", changeBGImage));
-
-// add the drag event handling to the puzzle pieces
 puzzlePieces.forEach(piece => piece.addEventListener("dragstart", handleStartDrag));
-
-// add the dragover AND the drop event handling to the drop zones
-dropZones.forEach(zone => zone.addEventListener("dragover", handleDragOver));
-
-// add the drop event handling
-dropZones.forEach(zone => zone.addEventListener("drop", handleDrop));
+dropZones.forEach(zone => {
+    zone.addEventListener("dragover", handleDragOver);
+    zone.addEventListener("drop", handleDrop);
+});
