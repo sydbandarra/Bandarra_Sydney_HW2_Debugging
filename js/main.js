@@ -28,17 +28,19 @@ function changeBGImage() {
 	puzzleBoard.style.backgroundImage = `url(images/backGround${this.id}.jpg)`;
 }
 
-function handleStartDrag() { 
-	console.log('started dragging this piece:', this);
-	// store a reference to the puzzle piece image that we're dragging
-	// so we can use it later and move it to a drop zone
-	draggedPiece = this;
+// Function to handle drag start event
+function handleStartDrag() {
+    console.log('started dragging this piece:', this);
+
+    // Store a reference to the puzzle piece image that we're dragging
+    // so we can use it later and move it to a drop zone
+    draggedPiece = this;
 }
 
-function handleDragOver(e) { 
-	e.preventDefault(); // e is shorthand for event
-	// this overrides the default dragover behaviour
-	console.log('dragged over me'); 
+// Function to handle drag over event
+function handleDragOver(e) {
+    e.preventDefault(); // Prevent default dragover behavior
+    console.log('dragged over me');
 }
 
 function handleDrop(e) { 
