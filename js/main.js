@@ -56,6 +56,22 @@ function handleDrop(e) {
         console.log("Drop Error: There is already a piece here, cannot drop piece.");
     }
 }
+
+// BUG FIX #2a: Function to reset puzzle pieces. Reset pieces if the drop zone is full, do something else if empty.
+function resetPuzzlePieces() {
+    // Go through each drop zone and remove any pieces that are there
+    dropZones.forEach(zone => {
+        if (zone.firstChild) {
+            const puzzlePieces = Array.from(zone.children);
+            puzzlePieces.forEach(piece => {
+                document.querySelector('.puzzle-pieces').appendChild(piece);
+            });
+        } else {
+            // Do something else if there are no puzzle pieces in the drop zone
+        }
+    });
+}
+
 // step 2
 // event handling always goes at the bottom => 
 // how do we want users to interact with our app
