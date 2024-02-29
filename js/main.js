@@ -15,17 +15,19 @@ let theButtons = document.querySelectorAll("#buttonHolder img"),
 	// because we need it in the handleDrop function
 	draggedPiece;
 
-// step 3
-// functionality always goes in the middle -> how do we want
-// the app to behave?
+// BUG FIX #2b: Function to change background image and puzzle pieces
 function changeBGImage() {
-	// the `` is a JavaScript template string. It tells the JS enging to evaluate the expression
-	// inside the braces - run that little bit of code. In this case it's just pulling the ID of the
-	// button we clicked on and putting it at the end of the image name (0, 1, 2, 3)
-	// and updating the background-image style of the puzzle board element.
+    // Reset puzzle pieces
+    resetPuzzlePieces();
 
-	// bug fix #2 should go here. it's at most 3 lines of JS code.
-	puzzleBoard.style.backgroundImage = `url(images/backGround${this.id}.jpg)`;
+    // Set background image
+    puzzleBoard.style.backgroundImage = `url(images/backGround${this.id}.jpg)`;
+
+    // Set puzzle pieces images
+    const puzzlePiecesSrc = ["topLeft", "topRight", "bottomLeft", "bottomRight"];
+    puzzlePieces.forEach((piece, index) => {
+        piece.src = `images/${puzzlePiecesSrc[index]}${this.id}.jpg`;
+    });
 }
 
 // Function to handle drag start event
@@ -72,10 +74,22 @@ function resetPuzzlePieces() {
     });
 }
 
-// Event Handling
+// step 2
+// event handling always goes at the bottom => 
+// how do we want users to interact with our app
+
+// 1 to 1 event handling
+//theButton.addEventListener("click", changeBGImage);
+
+// 1 to many event handling
+// add event handling to each button in the collection of buttons, one at a time
 theButtons.forEach(button => button.addEventListener("click", changeBGImage));
+
+// add the drag event handling to the puzzle pieces
 puzzlePieces.forEach(piece => piece.addEventListener("dragstart", handleStartDrag));
-dropZones.forEach(zone => {
-    zone.addEventListener("dragover", handleDragOver);
-    zone.addEventListener("drop", handleDrop);
-});
+
+// add the dragover AND the drop event handling to the drop zones
+dropZones.forEach(zone => zone.addEventListener("dragover", handleDragOver));
+
+// add the drop event handling
+dropZones.forEach(zone => zone.addEventListener("drop", handleDrop));
